@@ -1,0 +1,9 @@
+.navbar {
+  justify-content: space-between;
+}
+.navbar a {
+  text-decoration: none;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: #ff4081;
+}

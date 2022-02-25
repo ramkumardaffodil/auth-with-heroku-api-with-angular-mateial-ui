@@ -1,0 +1,27 @@
+.form-container {
+  margin: 0 30rem;
+}
+.form-container h3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.form-element {
+  padding: 5px 0px 25px 2px;
+  width: 100%;
+}
+.already-container {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.already-container a {
+  text-decoration: none;
+  color: #ff4081;
+}

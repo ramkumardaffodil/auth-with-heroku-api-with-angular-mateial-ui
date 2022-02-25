@@ -1,0 +1,42 @@
+<div class="form-container">
+  <h3 style="color: #ff4081">Login</h3>
+  <form class="form" (ngSubmit)="handleLogin()" [formGroup]="loginForm">
+    <mat-form-field appearance="fill" class="form-element">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        formControlName="email"
+        required
+      />
+      <mat-error *ngIf="email && email.invalid">Email is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-element">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-error *ngIf="password && password.invalid"
+        >Password is required</mat-error
+      >
+    </mat-form-field>
+    <p *ngIf="notFoundError">User not found</p>
+    <button mat-flat-button color="accent">Submit</button>
+
+    <h5 class="already-container">
+      Don't have an account ?
+      <a routerLink="/register"> Register </a>
+    </h5>
+  </form>
+</div>

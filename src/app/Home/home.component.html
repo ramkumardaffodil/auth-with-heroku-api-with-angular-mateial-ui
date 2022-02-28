@@ -2,10 +2,54 @@
   <mat-card *ngIf="auth.getDataFromDb()">
     <mat-card-content> Welcome {{ user.userName }} </mat-card-content>
   </mat-card>
-  <h2>You should watch young sheldon</h2>
-  <img
-    src="https://m.media-amazon.com/images/M/MV5BMDI2ZGEyYWItNWIzNC00YWJlLWFhOWYtZjMyMGU2MmFhOTBkXkEyXkFqcGdeQXRyYW5zY29kZS13b3JrZmxvdw@@._V1_.jpg"
-    width="400"
-    height="300"
-  />
+</div>
+
+<div class="example-container">
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="todo"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list"
+  >
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item }}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Done</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="example-box1" *ngIf="data">
+      <div class="example-box1" *ngFor="let item of data" cdkDrag>
+        <mat-form-field
+          *ngIf="item.type === 'text'"
+          class="example-full-width"
+          appearance="fill"
+        >
+          <mat-label>{{ item.label }}</mat-label>
+          <input matInput placeholder="Enter txt" value="" />
+        </mat-form-field>
+        <button
+          *ngIf="item.type === 'button' || item.type === 'submit'"
+          mat-raised-button
+          color="primary"
+          type="{{ item.type }}"
+        >
+          {{ item.value }}
+        </button>
+
+        <button type="button" (click)="openDialog(item)">Edit</button>
+      </div>
+    </div>
+  </div>
 </div>

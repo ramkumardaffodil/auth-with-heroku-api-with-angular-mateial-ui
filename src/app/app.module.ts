@@ -12,8 +12,18 @@ import LoginForm from './Auth/Login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import ButtonEditDialogBox from './Home/BtnEdit/btnEdit.component';
+import InputEditDialogBox from './Home/inputEdit/inputEdit.component';
+
 @NgModule({
-  declarations: [AppComponent, Home, RegisterForm, LoginForm],
+  declarations: [
+    AppComponent,
+    Home,
+    RegisterForm,
+    LoginForm,
+    InputEditDialogBox,
+    ButtonEditDialogBox,
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

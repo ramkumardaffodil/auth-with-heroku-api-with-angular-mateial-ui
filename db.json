@@ -1,0 +1,22 @@
+{
+  "controls": [
+    {
+      "type": "text",
+      "name": "first name",
+      "value": "",
+      "label": "first name",
+      "id": 1
+    },
+    {
+      "type": "button",
+      "name": "btn",
+      "value": "update",
+      "id": 2
+    },
+    {
+      "type": "submit",
+      "value": "Add tenant",
+      "id": 3
+    }
+  ]
+}

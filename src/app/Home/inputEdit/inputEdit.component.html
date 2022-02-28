@@ -1,0 +1,15 @@
+<form [formGroup]="UpdateForm" (ngSubmit)="handleUpdate()">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Label</mat-label>
+    <input matInput formControlName="label" />
+  </mat-form-field>
+
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+    Update
+  </button>
+</form>

@@ -1,0 +1,14 @@
+<mat-card>
+  <h3>Save form</h3>
+  <form [formGroup]="saveForm" (ngSubmit)="handleSaveForm()">
+    <mat-form-field appearance="fill">
+      <mat-label>Form Name</mat-label>
+      <input matInput formControlName="formName" />
+    </mat-form-field>
+    <br />
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      Save Form
+    </button>
+  </form>
+</mat-card>

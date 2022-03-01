@@ -1,22 +1,80 @@
 {
-  "controls": [
+  "controls": [],
+  "forms": [
     {
-      "type": "text",
-      "name": "first name",
-      "value": "",
-      "label": "first name",
+      "formData": [
+        {
+          "type": "submit",
+          "name": "someSubmit",
+          "value": "Submit",
+          "label": "Submit",
+          "id": 1
+        },
+        {
+          "type": "submit",
+          "name": "someSubmit",
+          "value": "Submit",
+          "label": "Submit",
+          "id": 2
+        },
+        {
+          "type": "password",
+          "name": "somepassword",
+          "value": "",
+          "label": "Password",
+          "id": 3
+        }
+      ],
+      "fileName": "kumar",
       "id": 1
     },
     {
-      "type": "button",
-      "name": "btn",
-      "value": "update",
+      "formData": [
+        {
+          "type": "text",
+          "name": "firstName",
+          "value": "",
+          "label": "some text",
+          "id": 1
+        },
+        {
+          "type": "password",
+          "name": "somepassword",
+          "value": "",
+          "label": "Password",
+          "id": 2
+        },
+        {
+          "type": "tel",
+          "name": "someNumber",
+          "value": "",
+          "label": "PhoneNumber",
+          "id": 3
+        },
+        {
+          "type": "number",
+          "name": "someNumber",
+          "value": "",
+          "label": "Number",
+          "id": 4
+        },
+        {
+          "type": "button",
+          "name": "someButton",
+          "value": "Button",
+          "label": "somebutton",
+          "id": 5
+        },
+        {
+          "type": "submit",
+          "name": "someSubmit",
+          "value": "Submit",
+          "label": "Submit",
+          "id": 6
+        }
+      ],
+      "fileName": "x",
       "id": 2
-    },
-    {
-      "type": "submit",
-      "value": "Add tenant",
-      "id": 3
     }
   ]
 }

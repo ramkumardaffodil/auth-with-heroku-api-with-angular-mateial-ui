@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import ButtonEditDialogBox from './Home/BtnEdit/btnEdit.component';
 import InputEditDialogBox from './Home/inputEdit/inputEdit.component';
+import PreviewComponent from './Home/Preview-form/preview-form.component';
+import FormTable from './Home/formTable/formTable.component';
+import SaveFormDialogBox from './Home/save-form/save-form.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import InputEditDialogBox from './Home/inputEdit/inputEdit.component';
     LoginForm,
     InputEditDialogBox,
     ButtonEditDialogBox,
+    PreviewComponent,
+    FormTable,
+    SaveFormDialogBox,
   ],
   imports: [
     BrowserModule,

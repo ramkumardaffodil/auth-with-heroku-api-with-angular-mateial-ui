@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 const Material = [
   MatButtonModule,
   MatToolbarModule,
@@ -16,6 +17,7 @@ const Material = [
   MatInputModule,
   DragDropModule,
   MatDialogModule,
+  MatTableModule,
 ];
 
 @NgModule({

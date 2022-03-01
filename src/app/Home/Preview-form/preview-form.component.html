@@ -1,0 +1,34 @@
+<mat-card>
+  <h2>Preview of current form</h2>
+  <form
+    [formGroup]="previewForm"
+    (ngSubmit)="handlePreviewSubmit()"
+    *ngIf="data"
+  >
+    <div *ngFor="let item of data">
+      <mat-form-field
+        *ngIf="
+          ['text', 'email', 'password', 'tel', 'number'].includes(item.type)
+        "
+        class="example-full-width"
+        appearance="fill"
+      >
+        <mat-label>{{ item.label }}</mat-label>
+        <input
+          matInput
+          placeholder="Enter txt"
+          value=""
+          type="{{ item.type }}"
+        />
+      </mat-form-field>
+      <button
+        *ngIf="item.type === 'button' || item.type === 'submit'"
+        mat-raised-button
+        color="primary"
+        type="{{ item.type }}"
+      >
+        {{ item.value }}
+      </button>
+    </div>
+  </form>
+</mat-card>

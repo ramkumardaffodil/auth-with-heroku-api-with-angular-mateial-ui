@@ -2,6 +2,7 @@
   <a routerLink="/">Blogs</a>
   <div>
     <a routerLink="/login" *ngIf="!authService.isLogin">Login</a>
+    <a routerLink="/forms" *ngIf="authService.isLogin">Forms</a>
     <p
       *ngIf="authService.isLogin"
       (click)="handleLogut()"

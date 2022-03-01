@@ -1,6 +1,7 @@
 import { AuthGuard } from './auth.guard';
 import LoginForm from './Auth/Login/login.component';
 import RegisterForm from './Auth/Register/register.component';
+import FormTable from './Home/formTable/formTable.component';
 import Home from './Home/home.component';
 import { ProtectRouteGuardGuard } from './protect-route-guard.guard';
 
@@ -16,6 +17,11 @@ const routes = [
     path: 'register',
     component: RegisterForm,
     canActivate: [ProtectRouteGuardGuard],
+  },
+  {
+    path: 'forms',
+    component: FormTable,
+    canActivate: [AuthGuard],
   },
 ];
 

@@ -1,19 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from './../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export default class HomeService {
-  constructor(private routes: Router, private http: HttpClient) {}
+  endPoint = environment.apiEndPoint;
+  constructor(private http: HttpClient) {}
   getDataFromJsonServer() {
-    return this.http.get('http://localhost:3000/controls');
+    return this.http.get(`${this.endPoint}/controls`);
   }
   postDataInJsonServer(data: any) {
-    return this.http.post('http://localhost:3000/controls', data);
+    return this.http.post(`${this.endPoint}/controls`, data);
   }
   patchDataInJsonServer(id: number, data: any) {
-    return this.http.patch(`http://localhost:3000/controls/${id}`, data);
+    return this.http.patch(`${this.endPoint}/controls/${id}`, data);
+  }
+  putDataInJsonServer(id: number, data: any) {
+    return this.http.put(`${this.endPoint}/controls/${id}`, data);
+  }
+  removeItemFromJson(id: number) {
+    return this.http.delete(`${this.endPoint}/controls/${id}`);
+  }
+  saveFormDataInJson(data: any) {
+    console.log('data in savedatainjson', data);
+    return this.http.post(`${this.endPoint}/forms`, data);
+  }
+  getFormDataFromJson() {
+    return this.http.get(`${this.endPoint}/forms`);
   }
 }

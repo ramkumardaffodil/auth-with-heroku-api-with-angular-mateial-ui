@@ -1,55 +1,83 @@
-<div style="margin: 2% 10%">
-  <mat-card *ngIf="auth.getDataFromDb()">
-    <mat-card-content> Welcome {{ user.userName }} </mat-card-content>
-  </mat-card>
-</div>
+<div style="margin: 2%">
+  <div class="example-container" style="width: 200px">
+    <h2 class="pink-txt-color">Form fields</h2>
 
-<div class="example-container">
-  <h2>To do</h2>
-
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="example-list"
-  >
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item }}</div>
-  </div>
-</div>
-
-<div class="example-container">
-  <h2>Done</h2>
-
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div class="example-box1" *ngIf="data">
-      <div class="example-box1" *ngFor="let item of data" cdkDrag>
-        <mat-form-field
-          *ngIf="item.type === 'text'"
-          class="example-full-width"
-          appearance="fill"
-        >
-          <mat-label>{{ item.label }}</mat-label>
-          <input matInput placeholder="Enter txt" value="" />
-        </mat-form-field>
-        <button
-          *ngIf="item.type === 'button' || item.type === 'submit'"
-          mat-raised-button
-          color="primary"
-          type="{{ item.type }}"
-        >
-          {{ item.value }}
-        </button>
-
-        <button type="button" (click)="openDialog(item)">Edit</button>
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="example-list"
+    >
+      <div class="example-box pink-txt-color" *ngFor="let item of todo" cdkDrag>
+        {{ item }}
       </div>
     </div>
   </div>
+  <div class="example-container">
+    <h2 class="pink-txt-color">Drag and drop from fields</h2>
+
+    <div
+      style="padding: 3%"
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="example-box1" *ngIf="data">
+        <div class="example-box1" *ngFor="let item of data" cdkDrag>
+          <mat-form-field
+            *ngIf="
+              ['text', 'email', 'password', 'tel', 'number'].includes(item.type)
+            "
+            class="example-full-width"
+            appearance="fill"
+          >
+            <mat-label>{{ item.label }}</mat-label>
+            <input
+              matInput
+              placeholder="Enter txt"
+              value=""
+              type="{{ item.type }}"
+            />
+          </mat-form-field>
+          <button
+            *ngIf="item.type === 'button' || item.type === 'submit'"
+            mat-raised-button
+            color="primary"
+            type="{{ item.type }}"
+          >
+            {{ item.value }}
+          </button>
+          <mat-icon
+            (click)="handleCloseDropField(item.id)"
+            class="pink-txt-color"
+            >close</mat-icon
+          >
+          <mat-icon (click)="openDialog(item)" class="pink-txt-color"
+            >edit</mat-icon
+          >
+        </div>
+      </div>
+    </div>
+    <button
+      mat-raised-button
+      class="pink-txt-color"
+      (click)="handlePreviewClick(data)"
+      *ngIf="data.length > 0"
+    >
+      Preview
+    </button>
+    <button
+      mat-raised-button
+      class="pink-txt-color"
+      (click)="handleSaveFormClick()"
+      *ngIf="data.length > 0"
+    >
+      Save
+    </button>
+  </div>
+  <pre class="example-container">{{ data | json }}</pre>
 </div>

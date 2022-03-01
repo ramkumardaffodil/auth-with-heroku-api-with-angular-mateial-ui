@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import HomeService from '../home.service';
@@ -11,11 +11,11 @@ export interface PeriodicElement {
 }
 
 @Component({
-  selector: 'form-table-component',
+  selector: 'app-form-table-component',
   templateUrl: './formTable.component.html',
   styles: ['table {width: 80%;}'],
 })
-export default class FormTable {
+export default class FormTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fileName'];
   dataSource: any;
   constructor(private homeService: HomeService, public dialog: MatDialog) {}

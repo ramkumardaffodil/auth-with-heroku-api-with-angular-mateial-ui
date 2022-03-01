@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import AuthService from 'src/app/auth.service';
@@ -8,7 +8,7 @@ import AuthService from 'src/app/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export default class LoginForm {
+export default class LoginFormComponent implements OnInit {
   notFoundError = false;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

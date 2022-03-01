@@ -10,21 +10,21 @@ import {
 import HomeService from '../home.service';
 
 @Component({
-  selector: 'save-form-dialog-box',
+  selector: 'app-save-form-dialog-box',
   templateUrl: './save-form.component.html',
 })
-export default class SaveFormDialogBox {
+export default class SaveFormDialogBoxComponent {
   saveForm = this.fb.group({
     formName: [''],
   });
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<SaveFormDialogBox>,
+    public dialogRef: MatDialogRef<SaveFormDialogBoxComponent>,
     private homeService: HomeService,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
-  ngOnInit() {}
+
   handleSaveForm() {
     const key = this.saveForm.value.formName;
     this.homeService.getDataFromJsonServer().subscribe((data) => {

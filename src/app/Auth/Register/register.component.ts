@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import AuthService from 'src/app/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['../Login/login.component.css'],
 })
-export default class RegisterForm {
+export default class RegisterFormComponent implements OnInit {
   hide = true;
   emailAlreadyError = false;
   passwordNotMatchError = false;

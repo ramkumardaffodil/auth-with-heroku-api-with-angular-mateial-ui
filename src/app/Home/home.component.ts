@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
@@ -28,7 +28,7 @@ interface Control {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export default class Home {
+export default class HomeComponent implements OnInit {
   user: any;
   todo = [
     'TextField',
@@ -68,9 +68,7 @@ export default class Home {
     }
     this.setDataToLocalArrayFromJson();
   }
-  ngOnChanges(change: any) {
-    console.log('in on chnages', change);
-  }
+
   openDialog(data: any): void {
     let dialogRef: any;
     if (['text', 'email', 'password', 'tel', 'number'].includes(data.type)) {

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -9,11 +9,11 @@ import {
 import HomeService from '../home.service';
 
 @Component({
-  selector: 'preview-component',
+  selector: 'app-preview-component',
   templateUrl: './preview-form.component.html',
   styles: [],
 })
-export default class PreviewComponent {
+export default class PreviewComponent implements OnInit {
   formData: any;
   previewForm = this.fb.group({});
 

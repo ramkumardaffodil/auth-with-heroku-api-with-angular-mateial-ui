@@ -9,21 +9,21 @@ import {
 import HomeService from '../home.service';
 
 @Component({
-  selector: 'home-edit-dialog-box',
+  selector: 'app-home-edit-dialog-box',
   templateUrl: './btnEdit.component.html',
 })
-export default class ButtonEditDialogBox {
+export default class ButtonEditDialogBoxComponent {
   UpdateForm = this.fb.group({
     value: [''],
   });
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<ButtonEditDialogBox>,
+    public dialogRef: MatDialogRef<ButtonEditDialogBoxComponent>,
     private homeService: HomeService,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
-  ngOnInit() {}
+
   handleUpdate() {
     this.homeService
       .patchDataInJsonServer(this.data.id, this.UpdateForm.value)

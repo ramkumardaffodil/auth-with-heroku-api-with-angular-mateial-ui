@@ -1,0 +1,48 @@
+<h2>Update room details for file name {{ data.fileName }}</h2>
+<div *ngFor="let control of updateFormRows.controls; index as i">
+  <div [formGroup]="$any(control)">
+    <mat-form-field
+      class="example-full-width"
+      appearance="fill"
+      style="margin-right: 1rem"
+    >
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Pizza" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field
+      class="example-full-width"
+      appearance="fill"
+      style="margin-right: 1rem"
+    >
+      <mat-label>Label</mat-label>
+      <input matInput placeholder="Ex. Pizza" formControlName="label" />
+    </mat-form-field>
+    <mat-form-field
+      class="example-full-width"
+      appearance="fill"
+      style="margin-right: 1rem"
+    >
+      <mat-label>Type</mat-label>
+      <input matInput placeholder="Ex. Pizza" formControlName="type" />
+    </mat-form-field>
+  </div>
+</div>
+<div style="display: flex; justify-content: flex-end">
+  <button
+    mat-raised-button
+    cdkFocusInitial
+    mat-dialog-close
+    style="margin-right: 2rem"
+  >
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    cdkFocusInitial
+    color="accent"
+    (click)="handleFormRowUpdate()"
+    [mat-dialog-close]="true"
+  >
+    Update
+  </button>
+</div>

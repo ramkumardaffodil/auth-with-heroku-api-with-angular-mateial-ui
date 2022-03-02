@@ -30,7 +30,7 @@
       />
       <mat-error *ngIf="email && email.invalid">Email is required</mat-error>
     </mat-form-field>
-    <p *ngIf="emailAlreadyError">Email already exits</p>
+    <p *ngIf="emailAlreadyError" style="color: red">Email already exits</p>
     <mat-form-field appearance="fill" class="form-element">
       <mat-label>Enter your password</mat-label>
       <input

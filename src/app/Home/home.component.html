@@ -52,29 +52,35 @@
             {{ item.value }}
           </button>
           <mat-icon
-            (click)="handleCloseDropField(item.id)"
+            (click)="handleDeleteDropField(item.id)"
             class="pink-txt-color"
-            >close</mat-icon
+            color="accent"
+            style="margin-right: 2rem; margin-left: 2rem"
+            >delete</mat-icon
           >
-          <mat-icon (click)="openDialog(item)" class="pink-txt-color"
+          <mat-icon
+            (click)="openDialog(item)"
+            class="pink-txt-color"
+            color="accent"
             >edit</mat-icon
           >
         </div>
       </div>
     </div>
     <button
-      mat-raised-button
+      mat-button
       class="pink-txt-color"
       (click)="handlePreviewClick(data)"
-      *ngIf="data.length > 0"
+      *ngIf="data && data.length > 0"
     >
       Preview
     </button>
     <button
-      mat-raised-button
+      mat-button
       class="pink-txt-color"
       (click)="handleSaveFormClick()"
-      *ngIf="data.length > 0"
+      *ngIf="data && data.length > 0"
+      color="accent"
     >
       Save
     </button>

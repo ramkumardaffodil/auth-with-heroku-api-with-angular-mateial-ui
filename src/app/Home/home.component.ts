@@ -10,6 +10,8 @@ import InputEditDialogBox from './inputEdit/inputEdit.component';
 import ButtonEditDialogBox from './BtnEdit/btnEdit.component';
 import SaveFormDialogBox from './save-form/save-form.component';
 import PreviewComponent from './Preview-form/preview-form.component';
+import DeleteDialogBoxComponent from './delete-modal/delete-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Controls {
   controls: Control[];
@@ -44,10 +46,7 @@ export default class HomeComponent implements OnInit {
   data!: Control[];
 
   myForm = this.fb.group({});
-  aboutRam = {
-    name: 'ram',
-    age: 13,
-  };
+
   constructor(
     public auth: AuthService,
     private http: HttpClient,
@@ -58,8 +57,6 @@ export default class HomeComponent implements OnInit {
   setDataToLocalArrayFromJson() {
     this.homeService.getDataFromJsonServer().subscribe((response: any) => {
       this.data = response;
-      this.generateForm(this.data);
-      //console.log('in setdatatolocalsray');
     });
   }
   ngOnInit() {
@@ -192,9 +189,18 @@ export default class HomeComponent implements OnInit {
       });
     }
   }
-  handleCloseDropField(id: number) {
-    this.homeService.removeItemFromJson(id).subscribe(() => {
+  handleDeleteDropField(id: number) {
+    const data = {
+      id,
+      isFormFieldDelete: true,
+    };
+    let dialogRef = this.dialog.open(DeleteDialogBoxComponent, { data });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The preview dialog was closed');
       this.setDataToLocalArrayFromJson();
     });
+    // this.homeService.removeItemFromJson(id).subscribe(() => {
+    //   this.setDataToLocalArrayFromJson();
+    // });
   }
 }

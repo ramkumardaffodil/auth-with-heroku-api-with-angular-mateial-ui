@@ -6,7 +6,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import HomeService from '../home.service';
 
 @Component({
@@ -22,9 +22,12 @@ export default class SaveFormDialogBoxComponent {
     public dialogRef: MatDialogRef<SaveFormDialogBoxComponent>,
     private homeService: HomeService,
     private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _snackBar: MatSnackBar
   ) {}
-
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
   handleSaveForm() {
     const key = this.saveForm.value.formName;
     this.homeService.getDataFromJsonServer().subscribe((data) => {
@@ -35,7 +38,10 @@ export default class SaveFormDialogBoxComponent {
       this.homeService.saveFormDataInJson(tempData).subscribe(() => {
         this.homeService.getDataFromJsonServer().subscribe((response: any) => {
           Array.from(response).forEach((c: any) => {
-            this.homeService.removeItemFromJson(c.id).subscribe(() => {});
+            console.log(c.id);
+            this.homeService.removeItemFromJson(c.id).subscribe(() => {
+              this.openSnackBar('Item saved successfully', 'done');
+            });
           });
         });
       });

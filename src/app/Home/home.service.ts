@@ -29,4 +29,10 @@ export default class HomeService {
   getFormDataFromJson() {
     return this.http.get(`${this.endPoint}/forms`);
   }
+  removeDataFromFormsArrayInJson(id: number) {
+    return this.http.delete(`${this.endPoint}/forms/${id}`);
+  }
+  patchFormDataArrayInJson(id: number, formData: any) {
+    return this.http.patch(`${this.endPoint}/forms/${id}`, { formData });
+  }
 }

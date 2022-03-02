@@ -1,0 +1,21 @@
+<mat-card>
+  <h3>Are u sure you want to delete?</h3>
+  <div style="display: flex; justify-content: space-between">
+    <button
+      mat-raised-button
+      mat-dialog-close
+      (click)="handleDeleteModalYesAndNo(false)"
+    >
+      No
+    </button>
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      cdkFocusInitial
+      color="accent"
+      (click)="handleDeleteModalYesAndNo(true)"
+    >
+      Yes
+    </button>
+  </div>
+</mat-card>

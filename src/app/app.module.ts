@@ -17,6 +17,8 @@ import InputEditDialogBox from './Home/inputEdit/inputEdit.component';
 import PreviewComponent from './Home/Preview-form/preview-form.component';
 import FormTable from './Home/formTable/formTable.component';
 import SaveFormDialogBox from './Home/save-form/save-form.component';
+import DeleteDialogBoxComponent from './Home/delete-modal/delete-modal.component';
+import FormUpdateDialogBoxComponent from './Home/form-update/form-update.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import SaveFormDialogBox from './Home/save-form/save-form.component';
     PreviewComponent,
     FormTable,
     SaveFormDialogBox,
+    DeleteDialogBoxComponent,
+    FormUpdateDialogBoxComponent,
   ],
   imports: [
     BrowserModule,

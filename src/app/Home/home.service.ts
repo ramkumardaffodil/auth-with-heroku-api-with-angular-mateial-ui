@@ -33,6 +33,6 @@ export default class HomeService {
     return this.http.delete(`${this.endPoint}/forms/${id}`);
   }
   patchFormDataArrayInJson(id: number, formData: any) {
-    return this.http.patch(`${this.endPoint}/forms/${id}`, { formData });
+    return this.http.put(`${this.endPoint}/forms/${id}`, formData);
   }
 }

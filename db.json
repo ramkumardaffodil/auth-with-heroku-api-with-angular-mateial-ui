@@ -1,4 +1,73 @@
 {
-  "controls": [],
-  "forms": []
+  "controls": [
+    {
+      "type": "text",
+      "name": "firstName",
+      "value": "",
+      "label": "some text",
+      "id": 1
+    },
+    {
+      "type": "button",
+      "name": "someButton",
+      "value": "Button",
+      "label": "somebutton",
+      "id": 2
+    }
+  ],
+  "forms": [
+    {
+      "formData": [
+        {
+          "type": "text",
+          "name": "firstName",
+          "value": "",
+          "label": "some text",
+          "id": 1
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "value": "",
+          "label": "some text",
+          "id": 2
+        }
+      ],
+      "fileName": "3",
+      "id": 1
+    },
+    {
+      "formData": [
+        {
+          "type": "text",
+          "name": "firstName",
+          "value": "",
+          "label": "some text",
+          "id": 1,
+          "formId": 2,
+          "fileName": ""
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "value": "",
+          "label": "some text",
+          "id": 2,
+          "formId": 2,
+          "fileName": ""
+        },
+        {
+          "type": "email",
+          "name": "someEmail",
+          "value": "",
+          "label": "Email",
+          "id": 3,
+          "formId": 2,
+          "fileName": ""
+        }
+      ],
+      "fileName": "test@gmail.com",
+      "id": 3
+    }
+  ]
 }

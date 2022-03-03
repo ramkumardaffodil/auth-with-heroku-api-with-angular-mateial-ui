@@ -16,13 +16,14 @@
       <input matInput formControlName="type" />
     </mat-form-field>
     <br />
-    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
     <button
       type="submit"
-      mat-button
+      mat-raised-button
       [mat-dialog-close]="true"
       cdkFocusInitial
       color="accent"
+      style="margin-left: 2rem"
     >
       Update
     </button>

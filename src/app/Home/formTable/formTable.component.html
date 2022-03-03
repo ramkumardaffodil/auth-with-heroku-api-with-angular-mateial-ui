@@ -1,52 +1,53 @@
-<h2 style="margin: 2%">User Created Forms are :</h2>
-<table
-  *ngIf="dataSource"
-  mat-table
-  [dataSource]="dataSource"
-  style="margin: 2%"
-  class="mat-elevation-z8"
->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>No.</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.id }}
-    </td>
-  </ng-container>
+<div style="margin: 3%; background-color: #ffc670">
+  <mat-card style="margin: 5%; background-color: #ffc670">
+    <h2 style="margin: 2%">User Created Forms are :</h2>
+    <table
+      *ngIf="dataSource"
+      mat-table
+      [dataSource]="dataSource"
+      style="margin: 2%; background-color: #ffc670"
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
 
-  <ng-container matColumnDef="fileName">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.fileName }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element">
-      <div>
-        <mat-icon
-          class="pink-txt-color"
-          style="margin-right: 1rem"
-          (click)="handleFormRowUpdate(element)"
-          color="accent"
-          >edit</mat-icon
-        >
-        <mat-icon
-          class="pink-txt-color"
-          style="margin-right: 1rem"
-          (click)="deleteRowFromTable(element.id)"
-          color="accent"
-          >delete</mat-icon
-        >
-        <mat-icon
-          class="pink-txt-color"
-          style="margin-right: 1rem"
-          (click)="handlePreviewInTable(element.formData)"
-          color="accent"
-          >preview</mat-icon
-        >
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+      <ng-container matColumnDef="fileName">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fileName }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <mat-icon
+              class="pink-txt-color"
+              style="margin-right: 1rem; color: 2c3333"
+              (click)="handleFormRowUpdate(element)"
+              >edit</mat-icon
+            >
+            <mat-icon
+              class="pink-txt-color"
+              style="margin-right: 1rem; color: 2c3333"
+              (click)="deleteRowFromTable(element.id)"
+              >delete</mat-icon
+            >
+            <mat-icon
+              class="pink-txt-color"
+              style="margin-right: 1rem; color: 2c3333"
+              (click)="handlePreviewInTable(element.formData)"
+              >preview</mat-icon
+            >
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card>
+</div>

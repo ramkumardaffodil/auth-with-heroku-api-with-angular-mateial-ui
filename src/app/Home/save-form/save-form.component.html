@@ -1,14 +1,17 @@
 <mat-card>
-  <h3>Save form</h3>
-  <form [formGroup]="saveForm" (ngSubmit)="handleSaveForm()">
-    <mat-form-field appearance="fill">
-      <mat-label>Form Name</mat-label>
-      <input matInput formControlName="formName" />
-    </mat-form-field>
-    <br />
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>
-      Save Form
+  <h3>Are u sure you want to Save?</h3>
+  <div style="display: flex; justify-content: space-between">
+    <button mat-raised-button mat-dialog-close (click)="handleSaveForm(false)">
+      No
     </button>
-  </form>
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      cdkFocusInitial
+      color="accent"
+      (click)="handleSaveForm(true)"
+    >
+      Yes
+    </button>
+  </div>
 </mat-card>

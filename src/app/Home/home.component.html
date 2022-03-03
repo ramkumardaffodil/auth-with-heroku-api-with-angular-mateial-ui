@@ -1,89 +1,122 @@
-<div style="margin: 2%">
-  <div class="example-container" style="width: 200px">
-    <h2 class="pink-txt-color">Form fields</h2>
+<div class="row">
+  <div class="col">
+    <mat-card class="custom-mat-card" style="width: 15rem">
+      <h2 class="pink-txt-color">Form fields</h2>
 
-    <div
-      cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="[doneList]"
-      class="example-list"
-    >
-      <div class="example-box pink-txt-color" *ngFor="let item of todo" cdkDrag>
-        {{ item }}
-      </div>
-    </div>
-  </div>
-  <div class="example-container">
-    <h2 class="pink-txt-color">Drag and drop from fields</h2>
-
-    <div
-      style="padding: 3%"
-      cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="example-box1" *ngIf="data">
-        <div class="example-box1" *ngFor="let item of data" cdkDrag>
-          <mat-form-field
-            *ngIf="
-              ['text', 'email', 'password', 'tel', 'number'].includes(item.type)
-            "
-            class="example-full-width"
-            appearance="fill"
-          >
-            <mat-label>{{ item.label }}</mat-label>
-            <input
-              matInput
-              placeholder="Enter txt"
-              value=""
-              type="{{ item.type }}"
-            />
-          </mat-form-field>
-          <button
-            *ngIf="item.type === 'button' || item.type === 'submit'"
-            mat-raised-button
-            color="primary"
-            type="{{ item.type }}"
-          >
-            {{ item.value }}
-          </button>
-          <mat-icon
-            (click)="handleDeleteDropField(item.id)"
-            class="pink-txt-color"
-            color="accent"
-            style="margin-right: 2rem; margin-left: 2rem"
-            >delete</mat-icon
-          >
-          <mat-icon
-            (click)="openDialog(item)"
-            class="pink-txt-color"
-            color="accent"
-            >edit</mat-icon
-          >
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list"
+      >
+        <div
+          class="example-box pink-txt-color"
+          *ngFor="let item of todo"
+          cdkDrag
+        >
+          {{ item }}
         </div>
       </div>
-    </div>
-    <button
-      mat-button
-      class="pink-txt-color"
-      (click)="handlePreviewClick(data)"
-      *ngIf="data && data.length > 0"
-    >
-      Preview
-    </button>
-    <button
-      mat-button
-      class="pink-txt-color"
-      (click)="handleSaveFormClick()"
-      *ngIf="data && data.length > 0"
-      color="accent"
-    >
-      Save
-    </button>
+    </mat-card>
   </div>
-  <pre class="example-container">{{ data | json }}</pre>
+  <div class="col">
+    <mat-card class="custom-mat-card" style="width: 25rem">
+      <h2 class="pink-txt-color">Drag and drop from fields</h2>
+
+      <div
+        style="padding: 3%"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box1" *ngIf="data">
+          <div class="example-box1" *ngFor="let item of data" cdkDrag>
+            <div style="display: flex; justify-content: space-between">
+              <div style="width: 10rem">
+                <mat-form-field
+                  *ngIf="
+                    ['text', 'email', 'password', 'tel', 'number'].includes(
+                      item.type
+                    )
+                  "
+                  class="example-full-width"
+                  appearance="fill"
+                >
+                  <mat-label>{{ item.label }}</mat-label>
+                  <input
+                    matInput
+                    placeholder="Enter txt"
+                    value=""
+                    type="{{ item.type }}"
+                  />
+                </mat-form-field>
+                <button
+                  *ngIf="item.type === 'button' || item.type === 'submit'"
+                  mat-raised-button
+                  color="primary"
+                  type="{{ item.type }}"
+                  style="margin-top: 1rem"
+                >
+                  {{ item.value }}
+                </button>
+              </div>
+              <div>
+                <mat-icon
+                  (click)="handleDeleteDropField(item.id)"
+                  class="pink-txt-color"
+                  style="margin-right: 2rem; margin-left: 2rem"
+                  >delete</mat-icon
+                >
+                <mat-icon (click)="openDialog(item)" class="pink-txt-color"
+                  >edit</mat-icon
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: end">
+        <button
+          mat-button
+          class="pink-txt-color"
+          (click)="handlePreviewClick(data)"
+          *ngIf="data && data.length > 0"
+          style="background-color: #2c3333; color: #fff"
+        >
+          Preview
+        </button>
+      </div>
+
+      <div *ngIf="data && data.length > 0">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Filename</mat-label>
+          <input
+            matInput
+            placeholder="Enter txt"
+            value="{{ data[0].fileName }}"
+            type="text"
+            #fileName
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          class="pink-txt-color"
+          (click)="handleSaveFormClick(fileName.value)"
+          *ngIf="data && data.length > 0"
+          style="margin-left: 1rem; background-color: #2c3333; color: #fff"
+        >
+          Save
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col" style="margin-right: 2rem">
+    <mat-card class="custom-mat-card">
+      <pre class="example-container1">{{ showJsonData | json }}</pre>
+    </mat-card>
+  </div>
 </div>

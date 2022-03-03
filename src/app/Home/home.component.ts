@@ -23,6 +23,7 @@ interface Control {
   name: string;
   value: string;
   label: string;
+  fileName?: string;
 }
 
 @Component({
@@ -44,9 +45,11 @@ export default class HomeComponent implements OnInit {
 
   done = [''];
   data!: Control[];
-
+  isEditMode = false;
   myForm = this.fb.group({});
-
+  formContainerDataForEdit: any;
+  fileNameInCaseForEdit: any;
+  showJsonData: any;
   constructor(
     public auth: AuthService,
     private http: HttpClient,
@@ -54,9 +57,16 @@ export default class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private homeService: HomeService
   ) {}
+  checkIsEditModeOn() {}
   setDataToLocalArrayFromJson() {
     this.homeService.getDataFromJsonServer().subscribe((response: any) => {
+      console.log('response ', response);
       this.data = response;
+      this.showJsonData = JSON.parse(JSON.stringify(response)).map((r: any) => {
+        delete r.formId;
+        delete r.fileName;
+        return r;
+      });
     });
   }
   ngOnInit() {
@@ -79,8 +89,11 @@ export default class HomeComponent implements OnInit {
       this.setDataToLocalArrayFromJson();
     });
   }
-  handleSaveFormClick() {
-    let dialogRef = this.dialog.open(SaveFormDialogBox);
+  handleSaveFormClick(fileName: any) {
+    const isEditMode = this.data[0].fileName ? true : false;
+    let dialogRef = this.dialog.open(SaveFormDialogBox, {
+      data: { fileName, isEditMode },
+    });
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
       this.setDataToLocalArrayFromJson();

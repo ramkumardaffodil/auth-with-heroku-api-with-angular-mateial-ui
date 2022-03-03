@@ -14,9 +14,6 @@ import HomeService from '../home.service';
   templateUrl: './save-form.component.html',
 })
 export default class SaveFormDialogBoxComponent {
-  saveForm = this.fb.group({
-    formName: [''],
-  });
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SaveFormDialogBoxComponent>,
@@ -28,23 +25,57 @@ export default class SaveFormDialogBoxComponent {
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
-  handleSaveForm() {
-    const key = this.saveForm.value.formName;
-    this.homeService.getDataFromJsonServer().subscribe((data) => {
-      const tempData = {
-        formData: data,
-        fileName: key,
-      };
-      this.homeService.saveFormDataInJson(tempData).subscribe(() => {
-        this.homeService.getDataFromJsonServer().subscribe((response: any) => {
-          Array.from(response).forEach((c: any) => {
-            console.log(c.id);
-            this.homeService.removeItemFromJson(c.id).subscribe(() => {
-              this.openSnackBar('Item saved successfully', 'done');
+  handleSaveForm(isSave: boolean) {
+    if (isSave) {
+      if (this.data.isEditMode) {
+        this.homeService.getDataFromJsonServer().subscribe((data: any) => {
+          const tempDataForIdOnly = JSON.parse(JSON.stringify(data));
+          data = data.map((d: any) => {
+            delete d.formId;
+            delete d.fileName;
+            return d;
+          });
+          const tempData = {
+            formData: data,
+            fileName: this.data.fileName,
+          };
+          console.log('before upading tempData is ', tempData);
+          this.homeService
+            .patchFormDataArrayInJson(tempDataForIdOnly[0].formId, tempData)
+            .subscribe(() => {
+              this.homeService
+                .getDataFromJsonServer()
+                .subscribe((response: any) => {
+                  Array.from(response).forEach((c: any) => {
+                    console.log(c.id);
+                    this.homeService.removeItemFromJson(c.id).subscribe(() => {
+                      this.openSnackBar('Item updated successfully', 'done');
+                    });
+                  });
+                });
             });
+        });
+      } else {
+        this.homeService.getDataFromJsonServer().subscribe((data) => {
+          const tempData = {
+            formData: data,
+            fileName: this.data.fileName,
+          };
+
+          this.homeService.saveFormDataInJson(tempData).subscribe(() => {
+            this.homeService
+              .getDataFromJsonServer()
+              .subscribe((response: any) => {
+                Array.from(response).forEach((c: any) => {
+                  console.log(c.id);
+                  this.homeService.removeItemFromJson(c.id).subscribe(() => {
+                    this.openSnackBar('Item saved successfully', 'done');
+                  });
+                });
+              });
           });
         });
-      });
-    });
+      }
+    }
   }
 }

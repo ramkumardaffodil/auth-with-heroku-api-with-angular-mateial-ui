@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import DeleteDialogBoxComponent from '../delete-modal/delete-modal.component';
 import FormUpdateDialogBoxComponent from '../form-update/form-update.component';
 
@@ -22,7 +23,11 @@ export default class FormTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fileName', 'actions'];
   dataSource: any;
   name = ['ram'];
-  constructor(private homeService: HomeService, public dialog: MatDialog) {}
+  constructor(
+    private homeService: HomeService,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.homeService.getFormDataFromJson().subscribe((data: any) => {
       this.dataSource = data;
@@ -48,12 +53,16 @@ export default class FormTableComponent implements OnInit {
     });
   }
   handleFormRowUpdate(data: any) {
-    let dialogRef = this.dialog.open(FormUpdateDialogBoxComponent, { data });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      this.homeService.getFormDataFromJson().subscribe((data: any) => {
-        this.dataSource = data;
-      });
-      console.log('The row form dialog was closed');
+    data.formData.forEach((d: any) => {
+      this.homeService
+        .postDataInJsonServer({
+          ...d,
+          formId: data.id,
+          fileName: data.fileName,
+        })
+        .subscribe(() => {});
     });
+
+    this.router.navigate(['/home']);
   }
 }

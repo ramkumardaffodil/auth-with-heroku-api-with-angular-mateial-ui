@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
-import routes from './routes';
-import FromBuilder from './form-builder/form-builder.component';
-import RegisterForm from './auth/register/register.component';
-import LoginForm from './auth/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -18,6 +12,11 @@ import PreviewComponent from './form-builder/Preview-form/preview-form.component
 import FormTable from './form-builder/form-table/form-table.component';
 import SaveFormDialogBox from './form-builder/save-modal/save-modal.component';
 import DeleteDialogBoxComponent from './form-builder/delete-modal/delete-modal.component';
+import routes from './shared/routing/routes';
+import FromBuilder from './form-builder/form-builder.component';
+import RegisterForm from './auth/register/register.component';
+import LoginForm from './auth/login/login.component';
+import { MaterialModule } from './shared/material/material.module';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ProtectRouteGuardGuard } from './protect-route-guard.guard';
 
 describe('ProtectRouteGuardGuard', () => {

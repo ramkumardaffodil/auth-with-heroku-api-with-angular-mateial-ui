@@ -1,12 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import HomeService from '../form-builder.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-preview-component',
@@ -20,8 +14,6 @@ export default class PreviewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<PreviewComponent>,
-    private home: HomeService,
-    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   ngOnInit() {

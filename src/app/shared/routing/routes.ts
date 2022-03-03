@@ -1,9 +1,9 @@
-import { AuthGuard } from './auth.guard';
-import LoginForm from './auth/login/login.component';
-import RegisterForm from './auth/register/register.component';
-import FormTable from './form-builder/form-table/form-table.component';
-import Home from './form-builder/form-builder.component';
-import { ProtectRouteGuardGuard } from './protect-route-guard.guard';
+import { AuthGuard } from '../guards/auth.guard';
+import LoginForm from '../../auth/login/login.component';
+import RegisterForm from '../../auth/register/register.component';
+import FormTable from '../../form-builder/form-table/form-table.component';
+import Home from '../../form-builder/form-builder.component';
+import { ProtectRouteGuardGuard } from '../guards/protect-route-guard.guard';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

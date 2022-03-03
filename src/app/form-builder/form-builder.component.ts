@@ -4,7 +4,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 
-import AuthService from '../auth.service';
+import AuthService from '../app.service';
 import HomeService from './form-builder.service';
 import InputEditDialogBox from './input-edit/input-edit.component';
 import ButtonEditDialogBox from './btn-edit/btn-edit.component';

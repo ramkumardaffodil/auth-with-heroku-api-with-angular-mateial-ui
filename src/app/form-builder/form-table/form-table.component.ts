@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import DeleteDialogBoxComponent from '../delete-modal/delete-modal.component';
 
-import HomeService from '../form-builder.service';
+import DeleteDialogBoxComponent from '../delete-modal/delete-modal.component';
+import FormBuilderService from '../form-builder.service';
 import PreviewComponent from '../Preview-form/preview-form.component';
 
 export interface PeriodicElement {
@@ -23,12 +23,12 @@ export default class FormTableComponent implements OnInit {
   dataSource: any;
   name = ['ram'];
   constructor(
-    private homeService: HomeService,
+    private formBuilderService: FormBuilderService,
     public dialog: MatDialog,
     private router: Router
   ) {}
   ngOnInit() {
-    this.homeService.getFormDataFromJson().subscribe((data: any) => {
+    this.formBuilderService.getFormDataFromJson().subscribe((data: any) => {
       this.dataSource = data;
     });
   }
@@ -38,22 +38,19 @@ export default class FormTableComponent implements OnInit {
       isFormFieldDelete: false,
     };
     let dialogRef = this.dialog.open(DeleteDialogBoxComponent, { data });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      this.homeService.getFormDataFromJson().subscribe((data: any) => {
+    dialogRef.afterClosed().subscribe(() => {
+      this.formBuilderService.getFormDataFromJson().subscribe((data: any) => {
         this.dataSource = data;
       });
-      console.log('The delete dialog was closed');
     });
   }
   handlePreviewInTable(data: any) {
     let dialogRef = this.dialog.open(PreviewComponent, { data });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The preview dialog was closed');
-    });
+    dialogRef.afterClosed().subscribe(() => {});
   }
   handleFormRowUpdate(data: any) {
     data.formData.forEach((d: any) => {
-      this.homeService
+      this.formBuilderService
         .postDataInJsonServer({
           ...d,
           formId: data.id,

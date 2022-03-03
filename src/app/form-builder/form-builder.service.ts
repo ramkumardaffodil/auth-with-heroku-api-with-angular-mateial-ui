@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export default class HomeService {
+export default class FormBuilderService {
   endPoint = environment.apiEndPoint;
   constructor(private http: HttpClient) {}
   getDataFromJsonServer() {
@@ -32,7 +32,7 @@ export default class HomeService {
   removeDataFromFormsArrayInJson(id: number) {
     return this.http.delete(`${this.endPoint}/forms/${id}`);
   }
-  patchFormDataArrayInJson(id: number, formData: any) {
+  putFormDataArrayInJson(id: number, formData: any) {
     return this.http.put(`${this.endPoint}/forms/${id}`, formData);
   }
 }

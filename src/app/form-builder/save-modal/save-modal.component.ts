@@ -7,11 +7,11 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import HomeService from '../home.service';
+import HomeService from '../form-builder.service';
 
 @Component({
   selector: 'app-save-form-dialog-box',
-  templateUrl: './save-form.component.html',
+  templateUrl: './save-modal.component.html',
 })
 export default class SaveFormDialogBoxComponent {
   constructor(

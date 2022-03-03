@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import DeleteDialogBoxComponent from '../delete-modal/delete-modal.component';
-import FormUpdateDialogBoxComponent from '../form-update/form-update.component';
 
-import HomeService from '../home.service';
+import HomeService from '../form-builder.service';
 import PreviewComponent from '../Preview-form/preview-form.component';
 
 export interface PeriodicElement {
@@ -16,7 +15,7 @@ export interface PeriodicElement {
 
 @Component({
   selector: 'app-form-table-component',
-  templateUrl: './formTable.component.html',
+  templateUrl: './form-table.component.html',
   styles: ['table {width: 80%;}'],
 })
 export default class FormTableComponent implements OnInit {

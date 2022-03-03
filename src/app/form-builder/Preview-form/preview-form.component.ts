@@ -6,7 +6,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import HomeService from '../home.service';
+import HomeService from '../form-builder.service';
 
 @Component({
   selector: 'app-preview-component',

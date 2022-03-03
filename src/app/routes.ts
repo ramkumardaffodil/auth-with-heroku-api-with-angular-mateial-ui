@@ -1,8 +1,8 @@
 import { AuthGuard } from './auth.guard';
-import LoginForm from './Auth/Login/login.component';
-import RegisterForm from './Auth/Register/register.component';
-import FormTable from './Home/formTable/formTable.component';
-import Home from './Home/home.component';
+import LoginForm from './auth/login/login.component';
+import RegisterForm from './auth/register/register.component';
+import FormTable from './form-builder/form-table/form-table.component';
+import Home from './form-builder/form-builder.component';
 import { ProtectRouteGuardGuard } from './protect-route-guard.guard';
 
 const routes = [

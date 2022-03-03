@@ -6,24 +6,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
 import routes from './routes';
-import Home from './Home/home.component';
-import RegisterForm from './Auth/Register/register.component';
-import LoginForm from './Auth/Login/login.component';
+import FromBuilder from './form-builder/form-builder.component';
+import RegisterForm from './auth/register/register.component';
+import LoginForm from './auth/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import ButtonEditDialogBox from './Home/BtnEdit/btnEdit.component';
-import InputEditDialogBox from './Home/inputEdit/inputEdit.component';
-import PreviewComponent from './Home/Preview-form/preview-form.component';
-import FormTable from './Home/formTable/formTable.component';
-import SaveFormDialogBox from './Home/save-form/save-form.component';
-import DeleteDialogBoxComponent from './Home/delete-modal/delete-modal.component';
-import FormUpdateDialogBoxComponent from './Home/form-update/form-update.component';
+import ButtonEditDialogBox from './form-builder/btn-edit/btn-edit.component';
+import InputEditDialogBox from './form-builder/input-edit/input-edit.component';
+import PreviewComponent from './form-builder/Preview-form/preview-form.component';
+import FormTable from './form-builder/form-table/form-table.component';
+import SaveFormDialogBox from './form-builder/save-modal/save-modal.component';
+import DeleteDialogBoxComponent from './form-builder/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Home,
+    FromBuilder,
     RegisterForm,
     LoginForm,
     InputEditDialogBox,
@@ -32,7 +31,6 @@ import FormUpdateDialogBoxComponent from './Home/form-update/form-update.compone
     FormTable,
     SaveFormDialogBox,
     DeleteDialogBoxComponent,
-    FormUpdateDialogBoxComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@ import AuthService from 'src/app/auth.service';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register.component.html',
-  styleUrls: ['../Login/login.component.css'],
+  styleUrls: ['../login/login.component.css'],
 })
 export default class RegisterFormComponent implements OnInit {
   hide = true;

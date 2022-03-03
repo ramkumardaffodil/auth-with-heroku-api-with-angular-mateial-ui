@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 
 import AuthService from '../auth.service';
-import HomeService from './home.service';
-import InputEditDialogBox from './inputEdit/inputEdit.component';
-import ButtonEditDialogBox from './BtnEdit/btnEdit.component';
-import SaveFormDialogBox from './save-form/save-form.component';
+import HomeService from './form-builder.service';
+import InputEditDialogBox from './input-edit/input-edit.component';
+import ButtonEditDialogBox from './btn-edit/btn-edit.component';
+import SaveFormDialogBox from './save-modal/save-modal.component';
 import PreviewComponent from './Preview-form/preview-form.component';
 import DeleteDialogBoxComponent from './delete-modal/delete-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,8 +28,8 @@ interface Control {
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  templateUrl: './form-builder.component.html',
+  styleUrls: ['./form-builder.component.css'],
 })
 export default class HomeComponent implements OnInit {
   user: any;

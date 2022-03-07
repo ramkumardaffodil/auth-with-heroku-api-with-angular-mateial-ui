@@ -11,24 +11,30 @@ import FormBuilderService from '../form-builder.service';
 })
 export default class ButtonEditDialogBoxComponent {
   UpdateForm = this.fb.group({
-    value: [''],
+    name: [this.data.value],
   });
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ButtonEditDialogBoxComponent>,
     private formBuilderService: FormBuilderService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private appService: FormBuilderService
   ) {}
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
 
   handleUpdate() {
-    this.formBuilderService
-      .patchDataInJsonServer(this.data.id, this.UpdateForm.value)
-      .subscribe(() => {
-        this.openSnackBar('Updated successfully', 'done');
-      });
+    if (this.UpdateForm.valid) {
+      const updatedDataIndex = this.appService.appData.findIndex(
+        (el: any) => el.id === this.data.id
+      );
+      this.appService.appData[updatedDataIndex] = {
+        value: this.UpdateForm.value.name,
+        type: this.data.type,
+        id: new Date().getTime(),
+      };
+    }
   }
 }

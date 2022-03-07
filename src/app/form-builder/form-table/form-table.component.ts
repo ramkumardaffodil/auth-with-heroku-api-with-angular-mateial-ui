@@ -49,16 +49,6 @@ export default class FormTableComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {});
   }
   handleFormRowUpdate(data: any) {
-    data.formData.forEach((d: any) => {
-      this.formBuilderService
-        .postDataInJsonServer({
-          ...d,
-          formId: data.id,
-          fileName: data.fileName,
-        })
-        .subscribe(() => {});
-    });
-
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home'], { queryParams: { id: data.id } });
   }
 }

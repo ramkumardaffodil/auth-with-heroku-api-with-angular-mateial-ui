@@ -28,13 +28,17 @@
         style="padding: 3%"
         cdkDropList
         #doneList="cdkDropList"
-        [cdkDropListData]="done"
+        [cdkDropListData]="homeService.appData"
         [cdkDropListConnectedTo]="[todoList]"
         class="example-list"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="example-box1" *ngIf="data">
-          <div class="example-box1" *ngFor="let item of data" cdkDrag>
+        <div class="example-box1" *ngIf="homeService.appData">
+          <div
+            class="example-box1"
+            *ngFor="let item of homeService.appData"
+            cdkDrag
+          >
             <div style="display: flex; justify-content: space-between">
               <div style="width: 10rem">
                 <mat-form-field
@@ -83,30 +87,31 @@
         <button
           mat-button
           class="pink-txt-color"
-          (click)="handlePreviewClick(data)"
-          *ngIf="data && data.length > 0"
+          (click)="handlePreviewClick(homeService.appData)"
+          *ngIf="homeService.appData && homeService.appData.length > 0"
           style="background-color: #2c3333; color: #fff"
         >
           Preview
         </button>
       </div>
 
-      <div *ngIf="data && data.length > 0">
+      <div *ngIf="homeService.appData && homeService.appData.length > 0">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Filename</mat-label>
           <input
             matInput
             placeholder="Enter txt"
-            value="{{ data[0].fileName }}"
+            value="{{ fileNameForUpdate }}"
             type="text"
             #fileName
           />
         </mat-form-field>
+        <h3 *ngIf="fileNameError">Invalid file name</h3>
         <button
           mat-raised-button
           class="pink-txt-color"
           (click)="handleSaveFormClick(fileName.value)"
-          *ngIf="data && data.length > 0"
+          *ngIf="homeService.appData && homeService.appData.length > 0"
           style="margin-left: 1rem; background-color: #2c3333; color: #fff"
         >
           Save
@@ -116,7 +121,7 @@
   </div>
   <div class="col" style="margin-right: 2rem">
     <mat-card class="custom-mat-card">
-      <pre class="example-container1">{{ showJsonData | json }}</pre>
+      <pre class="example-container1">{{ homeService.appData | json }}</pre>
     </mat-card>
   </div>
 </div>

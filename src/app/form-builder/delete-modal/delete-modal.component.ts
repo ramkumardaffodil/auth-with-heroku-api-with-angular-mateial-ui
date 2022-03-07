@@ -13,19 +13,18 @@ export default class DeleteDialogBoxComponent {
     public dialogRef: MatDialogRef<DeleteDialogBoxComponent>,
     private formBuilderService: FormBuilderService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private appService: FormBuilderService
   ) {}
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, { duration: 3000 });
   }
   handleDeleteModalYesAndNo(flag: boolean) {
     if (flag) {
       if (this.data.isFormFieldDelete) {
-        this.formBuilderService
-          .removeItemFromJson(this.data.id)
-          .subscribe(() => {
-            this.openSnackBar('Item deleted successfully', 'done');
-          });
+        this.appService.appData = this.appService.appData.filter(
+          (el: any) => el.id !== this.data.id
+        );
       } else {
         this.formBuilderService
           .removeDataFromFormsArrayInJson(this.data.id)

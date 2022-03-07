@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 })
 export default class FormBuilderService {
   endPoint = environment.apiEndPoint;
+  appData: any;
   constructor(private http: HttpClient) {}
   getDataFromJsonServer() {
     return this.http.get(`${this.endPoint}/controls`);
@@ -34,5 +35,8 @@ export default class FormBuilderService {
   }
   putFormDataArrayInJson(id: number, formData: any) {
     return this.http.put(`${this.endPoint}/forms/${id}`, formData);
+  }
+  getFormDataWithIdFromJson(id: number) {
+    return this.http.get(`${this.endPoint}/forms/${id}`);
   }
 }

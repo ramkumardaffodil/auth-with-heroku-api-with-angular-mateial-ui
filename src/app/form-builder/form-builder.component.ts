@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 import AuthService from '../app.service';
 import HomeService from './form-builder.service';
@@ -11,7 +12,6 @@ import ButtonEditDialogBox from './btn-edit/btn-edit.component';
 import SaveFormDialogBox from './save-modal/save-modal.component';
 import PreviewComponent from './Preview-form/preview-form.component';
 import DeleteDialogBoxComponent from './delete-modal/delete-modal.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Controls {
   controls: Control[];
@@ -44,36 +44,49 @@ export default class HomeComponent implements OnInit {
   ];
 
   done = [''];
-  data!: Control[];
+  data: any;
   isEditMode = false;
   myForm = this.fb.group({});
   formContainerDataForEdit: any;
   fileNameInCaseForEdit: any;
   showJsonData: any;
+  fileNameError: boolean = false;
+  fileNameForUpdate: any;
+  formUpdateId!: number;
+
   constructor(
     public auth: AuthService,
-    private http: HttpClient,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private homeService: HomeService
+    public homeService: HomeService,
+    private _snackBar: MatSnackBar,
+    private routes: ActivatedRoute
   ) {}
-  checkIsEditModeOn() {}
-  setDataToLocalArrayFromJson() {
-    this.homeService.getDataFromJsonServer().subscribe((response: any) => {
-      console.log('response ', response);
-      this.data = response;
-      this.showJsonData = JSON.parse(JSON.stringify(response)).map((r: any) => {
-        delete r.formId;
-        delete r.fileName;
-        return r;
-      });
-    });
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 3000 });
   }
+
   ngOnInit() {
     if (this.auth.isLogin) {
       this.user = JSON.parse(this.auth.getDataFromDb());
     }
-    this.setDataToLocalArrayFromJson();
+    this.routes.queryParams.subscribe((d: any) => {
+      console.log(d);
+      if (d.id) {
+        this.homeService
+          .getFormDataWithIdFromJson(d.id)
+          .subscribe((response: any) => {
+            console.log(response);
+            this.homeService.appData = response.formData;
+            this.fileNameForUpdate = response.fileName;
+            this.formUpdateId = response.id;
+          });
+      } else {
+        this.homeService.appData = [];
+        this.fileNameForUpdate = '';
+      }
+    });
   }
 
   openDialog(data: any): void {
@@ -85,35 +98,31 @@ export default class HomeComponent implements OnInit {
     }
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
-      this.setDataToLocalArrayFromJson();
+      this.openSnackBar('Updated successfully', 'done');
     });
   }
   handleSaveFormClick(fileName: any) {
-    const isEditMode = this.data[0].fileName ? true : false;
-    let dialogRef = this.dialog.open(SaveFormDialogBox, {
-      data: { fileName, isEditMode },
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
-      this.setDataToLocalArrayFromJson();
-    });
+    if (fileName) {
+      this.fileNameError = false;
+      const isEditMode = this.fileNameForUpdate ? true : false;
+      let dialogRef = this.dialog.open(SaveFormDialogBox, {
+        data: {
+          fileName,
+          isEditMode,
+          controls: this.homeService.appData,
+          formId: this.formUpdateId,
+        },
+      });
+      dialogRef.afterClosed().subscribe((result: any) => {});
+    } else {
+      this.fileNameError = true;
+    }
   }
   handlePreviewClick(data: any) {
     let dialogRef = this.dialog.open(PreviewComponent, { data });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The preview dialog was closed');
-      this.setDataToLocalArrayFromJson();
-    });
+    dialogRef.afterClosed().subscribe((result: any) => {});
   }
 
-  handleEdit(id: number) {
-    console.log('u want to edit', id);
-  }
-  getTypeObject(keyType: String) {
-    switch (keyType) {
-    }
-  }
   getType(type: String) {
     switch (type) {
       case 'TextField':
@@ -154,52 +163,38 @@ export default class HomeComponent implements OnInit {
       case 'Button':
         return {
           type: 'button',
-          name: 'someButton',
+
           value: 'Button',
-          label: 'somebutton',
         };
       case 'Submit':
         return {
           type: 'submit',
-          name: 'someSubmit',
           value: 'Submit',
-          label: 'Submit',
         };
       default:
         return {};
     }
   }
   handleSubmit() {}
-  generateForm(controls: any) {
-    for (const control of controls) {
-      this.myForm.addControl(control.name, this.fb.control(''));
-    }
-  }
+
   previewFlag = false;
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
-      this.homeService.getDataFromJsonServer().subscribe((response: any) => {
-        this.data = response;
-        const previousData = this.data[event.previousIndex];
-        const currentData = this.data[event.currentIndex];
-        this.homeService
-          .putDataInJsonServer(previousData.id, currentData)
-          .subscribe(() => {
-            this.homeService
-              .putDataInJsonServer(currentData.id, previousData)
-              .subscribe(() => {
-                this.setDataToLocalArrayFromJson();
-              });
-          });
-      });
+      const previousData = this.homeService.appData[event.previousIndex];
+      const currentData = this.homeService.appData[event.currentIndex];
+      this.homeService.appData[event.previousIndex] = currentData;
+      this.homeService.appData[event.currentIndex] = previousData;
     } else {
       const data = this.getType(
         event.previousContainer.data[event.previousIndex]
       );
-      this.homeService.postDataInJsonServer(data).subscribe(() => {
-        this.setDataToLocalArrayFromJson();
-      });
+
+      if (this.homeService.appData && this.homeService.appData.length) {
+        this.homeService.appData.push({ ...data, id: new Date().getTime() });
+      } else {
+        this.homeService.appData = [{ ...data, id: new Date().getTime() }];
+      }
     }
   }
   handleDeleteDropField(id: number) {
@@ -208,12 +203,9 @@ export default class HomeComponent implements OnInit {
       isFormFieldDelete: true,
     };
     let dialogRef = this.dialog.open(DeleteDialogBoxComponent, { data });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The preview dialog was closed');
-      this.setDataToLocalArrayFromJson();
-    });
-    // this.homeService.removeItemFromJson(id).subscribe(() => {
-    //   this.setDataToLocalArrayFromJson();
-    // });
+    dialogRef.afterClosed().subscribe((result: any) => {});
+  }
+  handleClearForm() {
+    this.homeService.appData = [];
   }
 }

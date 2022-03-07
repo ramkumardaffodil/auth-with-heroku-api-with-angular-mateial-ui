@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 import FormBuilderService from '../form-builder.service';
 
@@ -11,69 +12,37 @@ import FormBuilderService from '../form-builder.service';
 export default class SaveFormDialogBoxComponent {
   constructor(
     public dialogRef: MatDialogRef<SaveFormDialogBoxComponent>,
+    private router: Router,
     private formBuilderService: FormBuilderService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar
   ) {}
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, { duration: 3000 });
   }
   handleSaveForm(isSave: boolean) {
     if (isSave) {
       if (this.data.isEditMode) {
         this.formBuilderService
-          .getDataFromJsonServer()
-          .subscribe((data: any) => {
-            const tempDataForIdOnly = JSON.parse(JSON.stringify(data));
-            data = data.map((d: any) => {
-              delete d.formId;
-              delete d.fileName;
-              return d;
-            });
-            const tempData = {
-              formData: data,
-              fileName: this.data.fileName,
-            };
-
-            this.formBuilderService
-              .putFormDataArrayInJson(tempDataForIdOnly[0].formId, tempData)
-              .subscribe(() => {
-                this.formBuilderService
-                  .getDataFromJsonServer()
-                  .subscribe((response: any) => {
-                    Array.from(response).forEach((c: any) => {
-                      this.formBuilderService
-                        .removeItemFromJson(c.id)
-                        .subscribe(() => {
-                          this.openSnackBar(
-                            'Item updated successfully',
-                            'done'
-                          );
-                        });
-                    });
-                  });
-              });
+          .putFormDataArrayInJson(this.data.formId, {
+            formData: this.data.controls,
+            fileName: this.data.fileName,
+          })
+          .subscribe((response) => {
+            this.openSnackBar('Item updated successfully', 'done');
+            this.router.navigate(['/forms']);
+            // this.formBuilderService.appData = [];
           });
       } else {
-        this.formBuilderService.getDataFromJsonServer().subscribe((data) => {
-          const tempData = {
-            formData: data,
-            fileName: this.data.fileName,
-          };
+        const tempData = {
+          formData: this.data.controls,
+          fileName: this.data.fileName,
+        };
 
-          this.formBuilderService.saveFormDataInJson(tempData).subscribe(() => {
-            this.formBuilderService
-              .getDataFromJsonServer()
-              .subscribe((response: any) => {
-                Array.from(response).forEach((c: any) => {
-                  this.formBuilderService
-                    .removeItemFromJson(c.id)
-                    .subscribe(() => {
-                      this.openSnackBar('Item saved successfully', 'done');
-                    });
-                });
-              });
-          });
+        this.formBuilderService.saveFormDataInJson(tempData).subscribe(() => {
+          this.openSnackBar('Item saved successfully', 'done');
+          //this.formBuilderService.appData = [];
+          this.router.navigate(['/forms']);
         });
       }
     }

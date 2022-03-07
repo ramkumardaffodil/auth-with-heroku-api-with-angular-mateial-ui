@@ -13,24 +13,29 @@ export default class InputEditDialogBoxComponent {
   UpdateForm = this.fb.group({
     name: [this.data.name],
     label: [this.data.label],
-    type: [this.data.type],
   });
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<InputEditDialogBoxComponent>,
     private formBuilderService: FormBuilderService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public appService: FormBuilderService
   ) {}
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
 
   handleUpdate() {
-    this.formBuilderService
-      .patchDataInJsonServer(this.data.id, this.UpdateForm.value)
-      .subscribe(() => {
-        this.openSnackBar('updated successfully', 'done');
-      });
+    if (this.UpdateForm.valid) {
+      const updatedDataIndex = this.appService.appData.findIndex(
+        (el: any) => el.id === this.data.id
+      );
+      this.appService.appData[updatedDataIndex] = {
+        ...this.UpdateForm.value,
+        type: this.data.type,
+        id: new Date().getTime(),
+      };
+    }
   }
 }

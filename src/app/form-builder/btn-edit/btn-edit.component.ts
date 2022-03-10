@@ -35,6 +35,7 @@ export default class ButtonEditDialogBoxComponent {
         type: this.data.type,
         id: new Date().getTime(),
       };
+      this.openSnackBar('Updated successfully', 'done');
     }
   }
 }

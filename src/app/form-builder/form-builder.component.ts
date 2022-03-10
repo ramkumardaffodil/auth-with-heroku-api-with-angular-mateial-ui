@@ -98,7 +98,7 @@ export default class HomeComponent implements OnInit {
     }
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.openSnackBar('Updated successfully', 'done');
+      //this.openSnackBar('Updated successfully', 'done');
     });
   }
   handleSaveFormClick(fileName: any) {

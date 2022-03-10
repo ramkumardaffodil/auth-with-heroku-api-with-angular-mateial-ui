@@ -36,6 +36,7 @@ export default class InputEditDialogBoxComponent {
         type: this.data.type,
         id: new Date().getTime(),
       };
+      this.openSnackBar('Updated successfully', 'done');
     }
   }
 }

@@ -11,6 +11,12 @@ import RegisterForm from './Auth/Register/register.component';
 import LoginForm from './Auth/Login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import AuthEffects from './effects/login.effect';
+import authReducer from './store/reducers/auth.reducer';
 
 @NgModule({
   declarations: [AppComponent, Home, RegisterForm, LoginForm],
@@ -21,6 +27,12 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     MaterialModule,
     RouterModule.forRoot(routes),
+    StoreModule.forRoot({ auth: authReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

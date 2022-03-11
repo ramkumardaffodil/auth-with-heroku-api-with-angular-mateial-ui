@@ -30,7 +30,7 @@
       />
       <mat-error *ngIf="email && email.invalid">Email is required</mat-error>
     </mat-form-field>
-    <p *ngIf="emailAlreadyError">Email already exits</p>
+
     <mat-form-field appearance="fill" class="form-element">
       <mat-label>Enter your password</mat-label>
       <input
@@ -72,7 +72,10 @@
       >
     </mat-form-field>
     <h4 *ngIf="passwordNotMatchError">Both the password not match</h4>
-    <button mat-flat-button color="accent">Submit</button>
+    <button mat-flat-button color="accent">
+      <mat-spinner *ngIf="isLoading$ | async" [diameter]="30"></mat-spinner>
+      <span *ngIf="!(isLoading$ | async)">submit</span>
+    </button>
 
     <h5 class="already-container">
       Already have an account ?

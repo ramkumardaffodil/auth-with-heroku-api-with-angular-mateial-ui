@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import AuthService from '../auth.service';
 
 @Component({
@@ -7,11 +8,8 @@ import AuthService from '../auth.service';
   styleUrls: [],
 })
 export default class Home {
-  user: any;
-  constructor(public auth: AuthService) {}
-  ngOnInit() {
-    if (this.auth.isLogin) {
-      this.user = JSON.parse(this.auth.getDataFromDb());
-    }
-  }
+  userData$ = this.store.select((state) => state.auth?.userData);
+  isLogin = false;
+
+  constructor(public auth: AuthService, private store: Store<{ auth: any }>) {}
 }

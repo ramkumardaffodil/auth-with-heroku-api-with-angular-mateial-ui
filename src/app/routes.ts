@@ -6,7 +6,11 @@ import { ProtectRouteGuardGuard } from './protect-route-guard.guard';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: Home, canActivate: [AuthGuard] },
+  {
+    path: 'home',
+    component: Home,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'login',
     component: LoginForm,

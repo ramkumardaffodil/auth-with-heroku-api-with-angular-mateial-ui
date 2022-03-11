@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-
-import { Router } from '@angular/router';
-import AuthService from 'src/app/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+import { clearError, signUpRequest } from 'src/app/store/actions/auth.action';
 
 @Component({
   selector: 'app-register-form',
@@ -11,12 +11,7 @@ import AuthService from 'src/app/auth.service';
 })
 export default class RegisterForm {
   hide = true;
-  emailAlreadyError = false;
   passwordNotMatchError = false;
-  ngOnInit() {
-    this.isBothPassMatch();
-    this.isEmailAlreadyErrorClear();
-  }
   registerForm = new FormGroup({
     firstname: new FormControl('', [Validators.required]),
     lastname: new FormControl('', [Validators.required]),
@@ -24,7 +19,23 @@ export default class RegisterForm {
     password: new FormControl('', [Validators.required]),
     cpassword: new FormControl('', [Validators.required]),
   });
-  constructor(private authService: AuthService, private router: Router) {}
+  error$ = this.store.select((state) => state.auth?.error);
+  isLoading$ = this.store.select((state) => state.auth?.loading);
+
+  ngOnInit() {
+    this.isBothPassMatch();
+    this.error$.subscribe((msg) => {
+      if (msg) {
+        this.openSnackbar(msg);
+        this.store.dispatch(clearError());
+      }
+    });
+  }
+  constructor(
+    private store: Store<{ auth: any }>,
+    private _snackBar: MatSnackBar
+  ) {}
+
   get firstname() {
     return this.registerForm.get('firstname');
   }
@@ -40,9 +51,9 @@ export default class RegisterForm {
   get cpassword() {
     return this.registerForm.get('cpassword');
   }
+
   isBothPassMatch() {
     this.registerForm.get('cpassword')?.valueChanges.subscribe((cpValue) => {
-      console.log(cpValue);
       if (cpValue !== this.password?.value) {
         this.passwordNotMatchError = true;
       } else {
@@ -50,39 +61,25 @@ export default class RegisterForm {
       }
     });
   }
-  isEmailAlreadyErrorClear() {
-    this.registerForm.get('email')?.valueChanges.subscribe((cpValue) => {
-      this.emailAlreadyError = false;
-    });
-  }
-  response(res: any) {
-    console.log('in response', res);
-    this.router.navigate(['/login']);
-  }
-  error(err: any) {
-    console.log('error while', err);
-    console.log(err.error.includes('Email id already registered'));
-    if (err.error.includes('Email id already registered')) {
-      this.emailAlreadyError = true;
-    }
-  }
-  complete() {
-    console.log('in complete');
-  }
+
   handleRegister() {
     if (this.registerForm.valid) {
       if (this.password?.value === this.cpassword?.value) {
-        this.passwordNotMatchError = false;
-        this.emailAlreadyError = false;
-        this.authService.SignUp(this.registerForm.value).subscribe(
-          (res) => this.response(res),
-          (err) => this.error(err),
-          () => this.complete()
-        );
+        this.store.dispatch(signUpRequest(this.registerForm.value));
       } else {
-        console.log(this.passwordNotMatchError);
         this.passwordNotMatchError = true;
       }
     }
+  }
+  openSnackbar(msg: any) {
+    this._snackBar.open(msg, 'Ok', { duration: 3000 });
+  }
+  handleError() {
+    this.error$.subscribe((msg) => {
+      if (msg) {
+        this.openSnackbar(msg);
+        this.store.dispatch(clearError());
+      }
+    });
   }
 }

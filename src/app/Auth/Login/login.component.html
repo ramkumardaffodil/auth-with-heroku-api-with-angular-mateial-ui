@@ -19,6 +19,7 @@
         formControlName="password"
       />
       <button
+        type="button"
         mat-icon-button
         matSuffix
         (click)="hide = !hide"
@@ -31,8 +32,11 @@
         >Password is required</mat-error
       >
     </mat-form-field>
-    <p *ngIf="notFoundError">User not found</p>
-    <button mat-flat-button color="accent">Submit</button>
+
+    <button mat-flat-button color="accent">
+      <mat-spinner *ngIf="isLoading$ | async" [diameter]="30"></mat-spinner>
+      <span *ngIf="!(isLoading$ | async)">submit</span>
+    </button>
 
     <h5 class="already-container">
       Don't have an account ?

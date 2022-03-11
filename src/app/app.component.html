@@ -1,9 +1,9 @@
 <mat-toolbar class="navbar">
   <a routerLink="/">Blogs</a>
   <div>
-    <a routerLink="/login" *ngIf="!authService.isLogin">Login</a>
+    <a routerLink="/login" *ngIf="!(userData$ | async)">Login</a>
     <p
-      *ngIf="authService.isLogin"
+      *ngIf="userData$ | async"
       (click)="handleLogut()"
       style="display: inline-block; cursor: pointer; color: #ff4081"
     >
